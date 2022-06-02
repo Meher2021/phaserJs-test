@@ -21,28 +21,24 @@ class SpinButton extends Phaser.GameObjects.Sprite {
 
   addEvents()
   {
-    this.on('pointerdown',()=>{
-
-      //this.setScale(0.9);
-      this.alpha = 0.5;
-
-    },this);
-
-    this.on('pointerup',()=>{
-
-      //this.setScale(1);
-      //this.alpha = 1;
-
-      this.disableInteractive();
-
-      this.onSpinButtonClick();
-
-    },this);
+    this.on('pointerdown',this.onSpinButtonClick,this);
   }
 
   onSpinButtonClick()
   {
+    this.disable();
     this.game.startSpin();
+  }
+
+  disable()
+  {
+    this.alpha = 0.5;
+    this.disableInteractive();
+  }
+  enable()
+  {
+    this.alpha = 1;
+    this.setInteractive();
   }
 
 

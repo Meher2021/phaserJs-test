@@ -41,7 +41,7 @@ class Preload extends Phaser.Scene {
 
      this.load.image('Arrow','Arrow.png?v='+t);
      this.load.image('Spin','Spin.png?v='+t);
-     this.load.image('Win','Win.png?v='+t);
+     this.load.image('big-win','Win.png?v='+t);
 
      this.load.image('CheatToolBackground','CheatToolBackground.png?v='+t);
      this.load.image('CheatToolInput','CheatToolInput.png?v='+t);

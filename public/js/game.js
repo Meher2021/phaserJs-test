@@ -31,6 +31,9 @@ class Game extends Phaser.Scene {
     var bg = this.add.sprite(0,0,'Background');
     bg.setOrigin(0);
 
+    this.bigWin = this.add.sprite(this.centerX,150,'big-win');
+    this.bigWin.visible = false;
+
   }
 
   addButtons()
@@ -41,6 +44,7 @@ class Game extends Phaser.Scene {
   startSpin()
   {
     this.timerCount = 0;
+    this.hideBigWin();
 
     this.reel1.stopSpinFlag = false;
     this.reel2.stopSpinFlag = false;
@@ -90,9 +94,36 @@ class Game extends Phaser.Scene {
 
       this.time.delayedCall(duration,()=>{
         this.reel3.stopSpinFlag = true;
+
+        this.onReelsStopped();
+
       },null,this);
 
     },null,this);
+  }
+
+  onReelsStopped()
+  {
+    this.time.delayedCall(200,()=>{
+
+    this.spinButton.enable();
+
+    if(this.reel1.visibleSymbol === this.reel2.visibleSymbol && this.reel1.visibleSymbol === this.reel3.visibleSymbol)
+    {
+      this.showBigWin();
+    }
+
+
+    },null,this);
+  }
+
+  showBigWin()
+  {
+    this.bigWin.visible = true;
+  }
+  hideBigWin()
+  {
+    this.bigWin.visible = false;
   }
 
   update()

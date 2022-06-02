@@ -16,7 +16,9 @@ class Reel extends Phaser.GameObjects.Container {
   {
     this.spinFlag = false;
     this.stopSpinFlag = false;
-    
+
+    this.visibleSymbol = '';
+
     this.speed = 20;
     this.startY = -304/2 + 20;
     this.endY = 930;
@@ -36,7 +38,6 @@ class Reel extends Phaser.GameObjects.Container {
     for(i = 0; i < 3; i++)
     {
       y = this.startY + i * vgap;
-
       this["symbol_"+i] = this.addSymbol(0,y);
     }
   }
@@ -64,11 +65,33 @@ class Reel extends Phaser.GameObjects.Container {
         if(this.stopSpinFlag === true)
         {
           this.spinFlag = false;
+
+          this.getVisibleSymbol();
         }
 
       }
 
     }
+
+  }/*reelSpin*/
+
+  getVisibleSymbol()
+  {
+    var self = this;
+
+    var reelSymbols = this.getAll();
+
+    reelSymbols.forEach(function(symbol){
+
+      if(Math.round(symbol.y) < 300 && Math.round(symbol.y) > 0)
+      {
+        self.visibleSymbol = symbol.symbolName;
+        console.log('symbolName',symbol.symbolName);
+      }
+
+    });
+
+
   }
 
   getRandomSymbol()
