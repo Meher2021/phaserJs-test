@@ -76,7 +76,9 @@ class Game extends Phaser.Scene {
     }
     else if(this.timerCount === 4){
 
-      this.time.delayedCall(5000,()=>{
+      var rndDuration = Phaser.Math.Between(1,3)*1000;
+
+      this.time.delayedCall(rndDuration,()=>{
         this.stopSpin();
       },null,this);
     }
