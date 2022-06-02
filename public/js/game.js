@@ -14,12 +14,20 @@ class Game extends Phaser.Scene {
     this.centerX = this.game.config.width*0.5;
     this.centerY = this.game.config.height*0.5;
 
+    this.showCheatToolFlag = true;
+
   }
   create()
   {
     this.setScreen();
 
     this.addButtons();
+
+    if(this.showCheatToolFlag === true)
+    {
+      this.addCheatTool();
+    }
+
   }
 
   setScreen()
@@ -132,5 +140,16 @@ class Game extends Phaser.Scene {
     if(this.reel2.spinFlag === true) { this.reel2.reelSpin(); }
     if(this.reel3.spinFlag === true) { this.reel3.reelSpin(); }
   }
+
+  /*--------------------------------cheat tool----------------------------------*/
+
+  addCheatTool()
+  {
+    this.cheatToolContainer = new CheatTool(this,0,-209);
+
+
+  }
+
+
 
 } /*class*/

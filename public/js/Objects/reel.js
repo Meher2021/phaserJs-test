@@ -14,6 +14,8 @@ class Reel extends Phaser.GameObjects.Container {
 
   initialize()
   {
+    this.game.add.existing(this);
+
     this.spinFlag = false;
     this.stopSpinFlag = false;
 
@@ -24,8 +26,6 @@ class Reel extends Phaser.GameObjects.Container {
     this.endY = 930;
 
     this.symbolNames = ['banana','cherry','blackberry'];
-
-    this.game.add.existing(this);
 
     this.addSymbols();
   }
