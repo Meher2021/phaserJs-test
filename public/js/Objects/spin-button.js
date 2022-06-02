@@ -32,13 +32,13 @@ class SpinButton extends Phaser.GameObjects.Sprite {
 
   disable()
   {
-    this.alpha = 0.5;
     this.disableInteractive();
+    this.setTexture('spin-button-disable');
   }
   enable()
   {
-    this.alpha = 1;
     this.setInteractive();
+    this.setTexture('spin-button');
   }
 
 

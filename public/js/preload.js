@@ -15,7 +15,7 @@ class Preload extends Phaser.Scene {
 
     var style = {
         fontSize:"32px",
-        fontFamily: "BadComic",
+        fontFamily: "Arial Black",
         align: "left",
         color: "#ffffff",
         stroke: "#ffffff",
@@ -33,19 +33,19 @@ class Preload extends Phaser.Scene {
 
      this.load.baseURL = "assets/";
 
-     this.load.image('Background','Background.png?v='+t);
+     this.load.image('background','background.png?v='+t);
 
-     this.load.image('banana','Banana.png?v='+t);
-     this.load.image('blackberry','Blackberry.png?v='+t);
-     this.load.image('cherry','Cherry.png?v='+t);
+     this.load.image('banana','banana.png?v='+t);
+     this.load.image('blackberry','blackberry.png?v='+t);
+     this.load.image('cherry','cherry.png?v='+t);
 
-     this.load.image('Arrow','Arrow.png?v='+t);
-     this.load.image('Spin','Spin.png?v='+t);
-     this.load.image('big-win','Win.png?v='+t);
+     this.load.image('arrow','arrow.png?v='+t);
+     this.load.image('spin-button','spin-button.png?v='+t);
+     this.load.image('spin-button-disable','spin-button-disable.png?v='+t);
+     this.load.image('big-win','win.png?v='+t);
 
-     this.load.image('CheatToolBackground','CheatToolBackground.png?v='+t);
-     this.load.image('CheatToolInput','CheatToolInput.png?v='+t);
-
+     this.load.image('cheat-tool-bg','cheat-tool-bg.png?v='+t);
+     this.load.image('cheat-tool-input','cheat-tool-input.png?v='+t);
 
      this.load.on('progress', this.loadUpdate, this);
 

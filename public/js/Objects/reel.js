@@ -7,31 +7,31 @@ class Reel extends Phaser.GameObjects.Container {
 		super(scene, x, y);
 
     this.game = scene;
+    this.type = type;
+    this.game.add.existing(this);
+
     this.initialize();
 
-    this.type = type;
   }
 
   initialize()
   {
-    this.game.add.existing(this);
-
     this.spinFlag = false;
     this.stopSpinFlag = false;
 
     this.visibleSymbol = '';
 
-    this.speed = 20;
-    this.startY = -304/2 + 20;
+    this.speed = 10;
+    this.vy  = 0.5;
+    this.startY = -132;
     this.endY = 930;
-
     this.symbolNames = ['banana','cherry','blackberry'];
 
     this.addSymbols();
   }
   addSymbols()
   {
-    var vgap = 304 + 50;
+    var vgap = 354;
     var y;
     var i;
 
@@ -60,17 +60,29 @@ class Reel extends Phaser.GameObjects.Container {
 
       if(symbol.y >= this.endY)
       {
-        symbol.y = this.startY;
+        var dy = symbol.y - this.endY;
+        symbol.y = this.startY + dy;
+
+        if(i === 1)
+        {
+          console.log('dy',dy);
+        }
 
         if(this.stopSpinFlag === true)
         {
           this.spinFlag = false;
 
-          this.getVisibleSymbol();
+          var vsymbol = this.getVisibleSymbol();
+          vsymbol.y = 222;
+          this.visibleSymbol = vsymbol.symbolName;
         }
-
       }
+    }
 
+    this.speed += this.vy;
+
+    if(this.speed >= 30) {
+      this.speed = 30;
     }
 
   }/*reelSpin*/
@@ -79,18 +91,20 @@ class Reel extends Phaser.GameObjects.Container {
   {
     var self = this;
 
+    var gobj;
+
     var reelSymbols = this.getAll();
 
     reelSymbols.forEach(function(symbol){
 
       if(Math.round(symbol.y) < 300 && Math.round(symbol.y) > 0)
       {
-        self.visibleSymbol = symbol.symbolName;
-        console.log('symbolName',symbol.symbolName);
+        gobj = symbol;
       }
 
     });
 
+    return gobj;
 
   }
 
