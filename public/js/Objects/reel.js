@@ -2,17 +2,21 @@
 
 class Reel extends Phaser.GameObjects.Container {
 
-  constructor(scene, x, y)
+  constructor(scene, x, y,type)
   {
 		super(scene, x, y);
 
     this.game = scene;
     this.initialize();
+
+    this.type = type;
   }
 
   initialize()
   {
     this.spinFlag = false;
+    this.stopSpinFlag = false;
+    
     this.speed = 20;
     this.startY = -304/2 + 20;
     this.endY = 930;
@@ -57,7 +61,7 @@ class Reel extends Phaser.GameObjects.Container {
       {
         symbol.y = this.startY;
 
-        if(this.game.stopSpinFlag === true)
+        if(this.stopSpinFlag === true)
         {
           this.spinFlag = false;
         }

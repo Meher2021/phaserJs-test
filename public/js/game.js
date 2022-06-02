@@ -22,20 +22,11 @@ class Game extends Phaser.Scene {
     this.addButtons();
   }
 
-  update()
-  {
-    if(this.reel1.spinFlag === true) { this.reel1.reelSpin(); }
-    if(this.reel2.spinFlag === true) { this.reel2.reelSpin(); }
-    if(this.reel3.spinFlag === true) { this.reel3.reelSpin(); }
-  }
-
-  /*--------------------------------------------------------------------------*/
-
   setScreen()
   {
-    this.reel1 = new Reel(this,this.centerX - 400, 290);
-    this.reel2 = new Reel(this,this.centerX, 290);
-    this.reel3 = new Reel(this,this.centerX + 400, 290);
+    this.reel1 = new Reel(this,this.centerX - 400, 290,'reel1');
+    this.reel2 = new Reel(this,this.centerX, 290,'reel2');
+    this.reel3 = new Reel(this,this.centerX + 400, 290,'reel3');
 
     var bg = this.add.sprite(0,0,'Background');
     bg.setOrigin(0);
@@ -50,7 +41,10 @@ class Game extends Phaser.Scene {
   startSpin()
   {
     this.timerCount = 0;
-    this.stopSpinFlag = false;
+
+    this.reel1.stopSpinFlag = false;
+    this.reel2.stopSpinFlag = false;
+    this.reel3.stopSpinFlag = false;
 
     var timer = this.time.addEvent({
     delay: 300,
@@ -87,7 +81,25 @@ class Game extends Phaser.Scene {
 
   stopSpin()
   {
-    this.stopSpinFlag = true;
+    var duration = 300;
+
+    this.reel1.stopSpinFlag = true;
+
+    this.time.delayedCall(duration,()=>{
+      this.reel2.stopSpinFlag = true;
+
+      this.time.delayedCall(duration,()=>{
+        this.reel3.stopSpinFlag = true;
+      },null,this);
+
+    },null,this);
+  }
+
+  update()
+  {
+    if(this.reel1.spinFlag === true) { this.reel1.reelSpin(); }
+    if(this.reel2.spinFlag === true) { this.reel2.reelSpin(); }
+    if(this.reel3.spinFlag === true) { this.reel3.reelSpin(); }
   }
 
 } /*class*/
