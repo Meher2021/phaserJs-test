@@ -29,14 +29,33 @@ class CheatTool extends Phaser.GameObjects.Container {
         strokeThickness:0,
       };
 
-    var toolsTxt = this.addText(48,226,'Tools',style);
+    var style2 = {
+        fontSize:"20px",
+        fontFamily: "Arial",
+        align: "left",
+        color: "#ffffff",
+        stroke: "#dfc899",
+        strokeThickness:2,
+      };
+
+    var toolsTxt = this.addText(50,226,'Tools',style);
     toolsTxt.setOrigin(0,0.5);
 
     this.arrowButton = this.addButton(165,226,'arrow');
     this.arrowButton.on('pointerdown',this.onArrowDown,this);
 
-    var heading = this.addText(48,226,'Tools',style);
-    toolsTxt.setOrigin(0,0.5);
+    var str = "SYMBOL POSITION IN THE REEL";
+    var heading = this.addText(50,42,str,style2);
+    heading.setOrigin(0,0.5);
+
+    this.input_0 = new CheatInput(this.game,104,96,0);
+    this.add(this.input_0);
+
+    this.input_1 = new CheatInput(this.game,230,96,1);
+    this.add(this.input_1);
+
+    this.input_2 = new CheatInput(this.game,354,96,2);
+    this.add(this.input_2);
 
   }
 
@@ -80,10 +99,10 @@ class CheatTool extends Phaser.GameObjects.Container {
 
   addButton(x,y,str)
   {
-    var spr = this.game.add.sprite(x,y,str);
-    this.add(spr);
-    spr.setInteractive();
-    return spr;
+    var btn = this.game.add.sprite(x,y,str);
+    this.add(btn);
+    btn.setInteractive();
+    return btn;
   }
   addText(x,y,str,style)
   {

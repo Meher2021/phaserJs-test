@@ -34,6 +34,7 @@ var config = {
     },
     width:width,
     height:height,
+    backgroundColor: '#ffffff',
     scene:[Preload,Game],
 
 };

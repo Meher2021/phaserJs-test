@@ -2,41 +2,56 @@
 
 class CheatInput extends Phaser.GameObjects.Container {
 
-  constructor(scene,x,y,type)
+  constructor(scene,x,y,n)
   {
     super(scene, x, y);
 
     this.game = scene;
-    this.type = type;
+    this.inputID = n;
     this.game.add.existing(this);
+
     this.initialize();
   }
   initialize()
   {
-    var img = this.addButton(0,0,'cheat-tool-input');
+    this.number = 0;
 
     var style = {
-        fontSize:"24px",
-        fontFamily: "Arial Black",
-        align: "center",
-        color: "#ffffff",
-        stroke: "#ffffff",
-        strokeThickness:0,
-      };
+      fontSize:"24px",
+      fontFamily: "Arial Black",
+      align: "center",
+      color: "#ffffff",
+      stroke: "#ffffff",
+      strokeThickness:0,
+    };
 
-
-    this.number = Phaser.Math.Between(0,2);
+    var bg = this.addButton(0,0,'cheat-tool-input');
+    bg.on('pointerdown',this.onDown,this);
 
     this.txt = this.addText(0,0,this.number.toString(),style);
 
   }
 
+  onDown()
+  {
+    this.game.cheatValuedFlag = true;
+
+    this.number++;
+
+    if(this.number === 3) {
+      this.number = 0;
+    }
+
+    this.txt.text = this.number.toString();
+
+  }
+
   addButton(x,y,str)
   {
-    var spr = this.game.add.sprite(x,y,str);
-    this.add(spr);
-    spr.setInteractive();
-    return spr;
+    var btn = this.game.add.sprite(x,y,str);
+    this.add(btn);
+    btn.setInteractive();
+    return btn;
   }
   addText(x,y,str,style)
   {

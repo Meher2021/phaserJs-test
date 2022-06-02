@@ -16,6 +16,8 @@ class Game extends Phaser.Scene {
 
     this.showCheatToolFlag = true;
 
+    this.cheatValuedFlag = false;
+
   }
   create()
   {
@@ -31,9 +33,9 @@ class Game extends Phaser.Scene {
 
   setScreen()
   {
-    this.reel1 = new Reel(this,this.centerX - 400, 290,'reel1');
-    this.reel2 = new Reel(this,this.centerX, 290,'reel2');
-    this.reel3 = new Reel(this,this.centerX + 400, 290,'reel3');
+    this.reel1 = new Reel(this,this.centerX - 400, 290,0);
+    this.reel2 = new Reel(this,this.centerX, 290,1);
+    this.reel3 = new Reel(this,this.centerX + 400, 290,2);
 
     var bg = this.add.sprite(0,0,'background');
     bg.setOrigin(0);
@@ -73,6 +75,7 @@ class Game extends Phaser.Scene {
     this.reel1.speed = 10;
     this.reel2.speed = 10;
     this.reel3.speed = 10;
+
   }
 
   onTimer()
@@ -122,6 +125,7 @@ class Game extends Phaser.Scene {
   {
     this.time.delayedCall(200,()=>{
 
+    this.cheatValuedFlag = false;
     this.spinButton.enable();
 
     if(this.reel1.visibleSymbol === this.reel2.visibleSymbol && this.reel1.visibleSymbol === this.reel3.visibleSymbol)
@@ -153,7 +157,7 @@ class Game extends Phaser.Scene {
 
   addCheatTool()
   {
-    this.cheatToolContainer = new CheatTool(this,0,-209);
+    this.cheatTool = new CheatTool(this,0,-209);
   }
 
 } /*class*/

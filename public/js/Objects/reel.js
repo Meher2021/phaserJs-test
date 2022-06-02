@@ -2,12 +2,12 @@
 
 class Reel extends Phaser.GameObjects.Container {
 
-  constructor(scene, x, y,type)
+  constructor(scene, x, y,n)
   {
 		super(scene, x, y);
 
     this.game = scene;
-    this.type = type;
+    this.reelID = n;
     this.game.add.existing(this);
 
     this.initialize();
@@ -19,6 +19,7 @@ class Reel extends Phaser.GameObjects.Container {
     this.spinFlag = false;
     this.stopSpinFlag = false;
 
+
     this.visibleSymbol = '';
 
     this.speed = 10;
@@ -26,7 +27,6 @@ class Reel extends Phaser.GameObjects.Container {
     this.startY = -132;
     this.endY = 930;
     this.symbolNames = ['banana','cherry','blackberry'];
-
     this.addSymbols();
   }
   addSymbols()
@@ -63,18 +63,9 @@ class Reel extends Phaser.GameObjects.Container {
         var dy = symbol.y - this.endY;
         symbol.y = this.startY + dy;
 
-        if(i === 1)
-        {
-          console.log('dy',dy);
-        }
-
         if(this.stopSpinFlag === true)
         {
-          this.spinFlag = false;
-
-          var vsymbol = this.getVisibleSymbol();
-          vsymbol.y = 222;
-          this.visibleSymbol = vsymbol.symbolName;
+           this.stopReel();
         }
       }
     }
@@ -86,6 +77,49 @@ class Reel extends Phaser.GameObjects.Container {
     }
 
   }/*reelSpin*/
+
+  stopReel()
+  {
+    this.spinFlag = false;
+    var arr = ['banana','cherry','blackberry'];
+
+    var vsymbol = this.getVisibleSymbol();
+    vsymbol.y = 222;
+
+    if(this.game.cheatValuedFlag === true)
+    {
+      let prev_name = vsymbol.symbolName;
+
+      let symbol_no = this.game.cheatTool['input_' + this.reelID].number;
+      let symbolName = arr[symbol_no];
+
+      this.swapName(symbolName,prev_name);
+
+      vsymbol.setTexture(symbolName);
+      vsymbol.symbolName = symbolName;
+
+      console.log('symbolName: ',symbol_no,symbolName);
+
+    }
+
+    this.visibleSymbol = vsymbol.symbolName;
+  }
+
+  swapName(symbolName,prev_name)
+  {
+    var reelSymbols = this.getAll();
+
+    reelSymbols.forEach(function(symbol){
+
+      if(symbol.symbolName === symbolName)
+      {
+        symbol.setTexture(prev_name);
+        symbol.symbolName = prev_name;
+      }
+
+    });
+
+  }
 
   getVisibleSymbol()
   {
